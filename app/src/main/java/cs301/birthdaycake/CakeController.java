@@ -55,6 +55,7 @@ public class CakeController implements View.OnClickListener, CompoundButton.OnCh
         }
 
         cView.invalidate();
+        refModel.hasBeenTouched = true;
         return false;
     }
 }

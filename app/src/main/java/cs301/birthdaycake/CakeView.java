@@ -190,10 +190,12 @@ public class CakeView extends SurfaceView {
             drawCandle(canvas, cakeLeft + ((i * cakeWidth) / (candleAmount))- candleWidth / candleAmount, cakeTop);
         }
 
-        //Draws the balloons
-        drawBalloon(canvas, cakeModel.xCoord, cakeModel.yCoord);
+        //Draws the balloons and the box
+        if (cakeModel.hasBeenTouched == true) {
+            drawBalloon(canvas, cakeModel.xCoord, cakeModel.yCoord);
+            drawBox(canvas, cakeModel.xCoord, cakeModel.yCoord, pink, green);
+        }
 
-        drawBox(canvas, cakeModel.xCoord, cakeModel.yCoord, pink, green);
     }//onDraw
 
     public void drawBox(Canvas canvas, float xCord, float yCord, Paint pink, Paint green){
