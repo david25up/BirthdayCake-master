@@ -130,7 +130,7 @@ public class CakeView extends SurfaceView {
         //Then a second cake layer
         canvas.drawRect(cakeLeft, top, cakeLeft + cakeWidth, bottom, cakePaint);
 
-        canvas.drawText(cakeModel.xCord + ", " + cakeModel.yCord, 1500, 700, coordPaint);
+        canvas.drawText(cakeModel.xCord + ", " + cakeModel.yCord, 1300, 700, coordPaint);
 
         coordPaint.setTextSize(100);
 

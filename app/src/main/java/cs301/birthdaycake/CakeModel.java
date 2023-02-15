@@ -8,9 +8,9 @@ public class CakeModel {
     public boolean hasFrosting = true;
     public boolean hasCandles = true;
 
-    public int xCord = 0;
+    public float xCord = 0;
 
-    public int yCord = 0;
+    public float yCord = 0;
 
 }
 
