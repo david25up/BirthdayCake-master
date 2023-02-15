@@ -26,6 +26,8 @@ public class MainActivity extends AppCompatActivity {
         candlesSwitch.setOnCheckedChangeListener(cControl);
         blowOut.setOnClickListener(cControl);
         candleCount.setOnSeekBarChangeListener(cControl);
+
+
     }
 
 
