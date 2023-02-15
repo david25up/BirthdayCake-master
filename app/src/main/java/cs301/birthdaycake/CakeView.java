@@ -17,6 +17,10 @@ public class CakeView extends SurfaceView {
     Paint innerFlamePaint = new Paint();
     Paint wickPaint = new Paint();
 
+    Paint green = new Paint();
+
+    Paint pink = new Paint();
+
     /* These constants define the dimensions of the cake.  While defining constants for things
         like this is good practice, we could be calculating these better by detecting
         and adapting to different tablets' screen sizes and resolutions.  I've deliberately
@@ -33,6 +37,7 @@ public class CakeView extends SurfaceView {
     public static final float wickWidth = 6.0f;
     public static final float outerFlameRadius = 30.0f;
     public static final float innerFlameRadius = 15.0f;
+
 
     private CakeModel cakeModel;
 
@@ -60,7 +65,10 @@ public class CakeView extends SurfaceView {
         innerFlamePaint.setStyle(Paint.Style.FILL);
         wickPaint.setColor(Color.BLACK);
         wickPaint.setStyle(Paint.Style.FILL);
-
+        green.setColor(0xFF00ff08); //green
+        green.setStyle(Paint.Style.FILL);
+        pink.setColor(0xFFff00b3); //pink
+        pink.setStyle(Paint.Style.FILL);
         setBackgroundColor(Color.WHITE);  //better than black default
 
     }
@@ -134,7 +142,20 @@ public class CakeView extends SurfaceView {
         for (int i = 1; i < candleAmount; i++) {
             drawCandle(canvas, cakeLeft + ((i * cakeWidth) / (candleAmount))- candleWidth / candleAmount, cakeTop);
         }
+
+        drawBox(canvas, xCoord, yCoord, pink, green);
     }//onDraw
+
+    public void drawBox(Canvas canvas, float xCord, float yCord, Paint pink, Paint green){
+        //green boxes
+        canvas.drawRect(xCord - 20, yCord - 10, xCord, yCord, green);// top left
+        canvas.drawRect(xCord, yCord, xCord + 20, yCord + 10, green);//bottom right
+
+        // pink
+        canvas.drawRect(xCord - 20, yCord, xCord, yCord + 10, pink); // bottom left
+        canvas.drawRect(xCord, yCord - 10, xCord + 20, yCord, pink);// top right
+
+    }//drawbox
 
 }//class CakeView
 
