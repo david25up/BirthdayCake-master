@@ -69,13 +69,13 @@ public class CakeView extends SurfaceView {
         innerFlamePaint.setStyle(Paint.Style.FILL);
         wickPaint.setColor(Color.BLACK);
         wickPaint.setStyle(Paint.Style.FILL);
+        coordPaint.setColor(Color.RED);
         balloonPaint.setColor(Color.BLUE);
         balloonPaint.setStyle(Paint.Style.FILL);
         green.setColor(0xFF00ff08); //green
         green.setStyle(Paint.Style.FILL);
         pink.setColor(0xFFff00b3); //pink
         pink.setStyle(Paint.Style.FILL);
-
 
         setBackgroundColor(Color.WHITE);  //better than black default
 
@@ -181,7 +181,10 @@ public class CakeView extends SurfaceView {
         //Then a second cake layer
         canvas.drawRect(cakeLeft, top, cakeLeft + cakeWidth, bottom, cakePaint);
 
-        //Now 2 candles :)
+        canvas.drawText(cakeModel.xCoord + ", " + cakeModel.yCoord, 1300, 700, coordPaint);
+
+        coordPaint.setTextSize(100);
+
         int candleAmount = cakeModel.candleCount+1;
         for (int i = 1; i < candleAmount; i++) {
             drawCandle(canvas, cakeLeft + ((i * cakeWidth) / (candleAmount))- candleWidth / candleAmount, cakeTop);
