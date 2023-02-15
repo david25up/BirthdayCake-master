@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Path;
 import android.util.AttributeSet;
 import android.view.SurfaceView;
 
@@ -40,6 +41,7 @@ public class CakeView extends SurfaceView {
     public static final float outerFlameRadius = 30.0f;
     public static final float innerFlameRadius = 15.0f;
 
+    public static final float ballonRadius = 50.0f;
 
     private CakeModel cakeModel;
 
@@ -67,10 +69,14 @@ public class CakeView extends SurfaceView {
         innerFlamePaint.setStyle(Paint.Style.FILL);
         wickPaint.setColor(Color.BLACK);
         wickPaint.setStyle(Paint.Style.FILL);
+        balloonPaint.setColor(Color.BLUE);
+        balloonPaint.setStyle(Paint.Style.FILL);
         green.setColor(0xFF00ff08); //green
         green.setStyle(Paint.Style.FILL);
         pink.setColor(0xFFff00b3); //pink
         pink.setStyle(Paint.Style.FILL);
+
+
         setBackgroundColor(Color.WHITE);  //better than black default
 
     }
@@ -107,6 +113,43 @@ public class CakeView extends SurfaceView {
     }
 
     /**
+     * Draws a balloon at the expected x and y coordinates
+     * Note: The balloon's center is placed at the center of the click and
+     *       there cannot be more than one balloon on screen.
+     */
+    public void drawBalloon (Canvas canvas, float xCoord, float yCoord) {
+
+
+        float xCenter = xCoord + ballonRadius;
+        float yCenter = yCoord + ballonRadius;
+
+
+
+        canvas.drawCircle(xCoord, yCoord, ballonRadius, balloonPaint); // Circle on Top
+
+        canvas.drawLine(xCoord, (yCoord + (ballonRadius / 2) + 10.0f), xCoord, (yCoord + (ballonRadius * 2) + 30.0f), wickPaint);
+
+        drawTriangle(canvas, balloonPaint, xCoord, yCoord, ballonRadius); // Bottom Triangle
+    }
+
+    /**
+     * Helper method to draw the bottom triangle of the balloon.
+     */
+    public void drawTriangle(Canvas canvas, Paint paint, float x, float centerY, float length) {
+        float halfLength = length / 2;
+        float y = centerY + halfLength + 10.0f ;
+
+        Path path = new Path();
+        path.moveTo(x - halfLength, y); // Top Left
+        path.lineTo(x, y + length); // Bottom Point
+        path.lineTo(x + halfLength, y); // Top Right
+        path.lineTo(x, y); // Back to Top
+        path.close();
+
+        canvas.drawPath(path, paint);
+    }
+
+    /**
      * onDraw is like "paint" in a regular Java program.  While a Canvas is
      * conceptually similar to a Graphics in javax.swing, the implementation has
      * many subtle differences.  Show care and read the documentation.
@@ -139,13 +182,15 @@ public class CakeView extends SurfaceView {
         canvas.drawRect(cakeLeft, top, cakeLeft + cakeWidth, bottom, cakePaint);
 
         //Now 2 candles :)
-
         int candleAmount = cakeModel.candleCount+1;
         for (int i = 1; i < candleAmount; i++) {
             drawCandle(canvas, cakeLeft + ((i * cakeWidth) / (candleAmount))- candleWidth / candleAmount, cakeTop);
         }
 
-        drawBox(canvas, xCoord, yCoord, pink, green);
+        //Draws the balloons
+        drawBalloon(canvas, cakeModel.xCoord, cakeModel.yCoord);
+
+        drawBox(canvas, cakeModel.xCoord, cakeModel.yCoord, pink, green);
     }//onDraw
 
     public void drawBox(Canvas canvas, float xCord, float yCord, Paint pink, Paint green){
