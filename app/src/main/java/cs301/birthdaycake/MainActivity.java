@@ -23,9 +23,11 @@ public class MainActivity extends AppCompatActivity {
         Button blowOut = findViewById(R.id.button);
         SeekBar candleCount = findViewById(R.id.seekBar2);
 
+        cakeView.setOnTouchListener(cControl);
         candlesSwitch.setOnCheckedChangeListener(cControl);
         blowOut.setOnClickListener(cControl);
         candleCount.setOnSeekBarChangeListener(cControl);
+
     }
 
 
